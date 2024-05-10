@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Productos</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Productos</h1>
+        <p>Completa el formulario para registrar un nuevo producto:</p>
+        <form action="#" method="POST">
+            <label for="nombre">Nombre del Producto:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria" required>
+                <option value="categoria1">Categoría 1</option>
+                <option value="categoria2">Categoría 2</option>
+                <option value="categoria3">Categoría 3</option>
+            </select>
+            
+            <label for="imagen">Imagen:</label>
+            <input type="file" id="imagen" name="imagen" accept="image/*" required>
+            
+            <label for="codigo">Código de Producto:</label>
+            <input type="text" id="codigo" name="codigo" required>
+            
+            <label for="precio">Precio (COP):</label>
+            <input type="number" id="precio" name="precio" step="0.01" required>
+            
+            <label for="atributo1">Atributo Adicional 1:</label>
+            <input type="text" id="atributo1" name="atributo1">
+            
+            <label for="atributo2">Atributo Adicional 2:</label>
+            <input type="text" id="atributo2" name="atributo2">
+            
+            <label for="atributo3">Atributo Adicional 3:</label>
+            <input type="text" id="atributo3" name="atributo3">
+            
+            <button type="submit">Registrar Producto</button>
+        </form>
+    </div>
+    <div id="registered-products"></div>
+    <script>
+        // Obtener el formulario
+        const form = document.querySelector('form');
+    
+        // Escuchar el evento submit del formulario
+        form.addEventListener('submit', function(event) {
+            // Evitar que el formulario se envíe
+            event.preventDefault();
+    
+            // Crear un objeto para almacenar los datos del producto
+            const nuevoProducto = {
+                nombre: form.nombre.value,
+                categoria: form.categoria.value,
+                imagen: form.imagen.value, // Deberías manejar el archivo de imagen de otra forma, como subirlo al servidor y almacenar la URL.
+                codigo: form.codigo.value,
+                precio: parseFloat(form.precio.value), // Convertir el precio a número
+                atributos: {
+                    atributo1: form.atributo1.value,
+                    atributo2: form.atributo2.value,
+                    atributo3: form.atributo3.value
+                }
+            };
+    
+            // Obtener los productos existentes del almacenamiento local o inicializar un array vacío si no hay ninguno
+            const productosGuardados = JSON.parse(localStorage.getItem('productos')) || [];
+    
+            // Agregar el nuevo producto al array de productos
+            productosGuardados.push(nuevoProducto);
+    
+            // Guardar el array de productos actualizado en el almacenamiento local
+            localStorage.setItem('productos', JSON.stringify(productosGuardados));
+    
+            // Limpiar el formulario después de agregar el producto
+            form.reset();
+    
+            // Opcionalmente, podrías mostrar un mensaje de éxito al usuario
+            alert('Producto registrado exitosamente.');
+        });
+    </script> 
+    <script src="data.js"></script>
+    <script src="vistaproductos.js"></script>
+</body>
+</html>
