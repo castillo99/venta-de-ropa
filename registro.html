@@ -114,9 +114,9 @@
             const nuevoProducto = {
                 nombre: nombre,
                 categoria: categoria,
-                imagen: form.imagen.value, // Nombre de la imagen seleccionada
+                imagen: form.imagen.value, // 
                 codigo: codigo,
-                precio: precio, // Convertir el precio a número
+                precio: precio, // 
                 atributos: {
                     color: form.color.value,
                     talla: form.talla.value,
@@ -127,23 +127,16 @@
             // Verificar el objeto nuevoProducto
             console.log('Nuevo Producto:', nuevoProducto);
 
-            // Resto del código para guardar el producto y redirigir al usuario
-            // Obtener los productos existentes del almacenamiento local o inicializar un array vacío si no hay ninguno
             const productosGuardados = JSON.parse(localStorage.getItem('productos')) || [];
 
-            // Agregar el nuevo producto al array de productos
             productosGuardados.push(nuevoProducto);
 
-            // Guardar el array de productos actualizado en el almacenamiento local
             localStorage.setItem('productos', JSON.stringify(productosGuardados));
 
-            // Limpiar el formulario después de agregar el producto
             form.reset();
 
-            // Opcionalmente, podrías mostrar un mensaje de éxito al usuario
             alert('Producto registrado exitosamente.');
 
-            // Redirigir a la página principal de productos
             window.location.href = 'productos.html'; // Reemplaza 'productos.html' con la URL de la página principal de productos
         });
     </script>
