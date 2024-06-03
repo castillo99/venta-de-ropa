@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultadosBusqueda = document.getElementById("resultadosBusqueda");
 
     let currentPage = 1;
-    const productsPerPage = 15; // Puedes ajustar este valor según tus necesidades
+    const productsPerPage = 15; // 
     let totalProducts = 0;
 
     // Función para mostrar los productos en una tabla o contenedor
