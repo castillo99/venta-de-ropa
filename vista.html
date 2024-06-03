@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Productos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Buscar Producto</h1>
+    </header>
+    <main>
+        <form id="busquedaForm">
+            <label for="buscarNombre">Nombre:</label>
+            <input type="text" id="buscarNombre" name="buscarNombre">
+            
+            <label for="buscarCategoria">Categoría:</label>
+            <select id="buscarCategoria" name="buscarCategoria">
+                <option value="">Todas</option>
+                <option value="ropa">Ropa</option>
+                <option value="calzado">Calzado</option>
+                <option value="accesorios">Accesorios</option>
+                <option value="vestidos de baño">Vestidos de baño</option>
+                <option value="ropa interior">Ropa interior</option>
+            </select>
+            
+            <label for="buscarPrecio">Precio Máximo:</label>
+            <input type="number" id="buscarPrecio" name="buscarPrecio">
+            
+            <button type="submit">Buscar</button>
+            <button type="reset">Limpiar Filtros</button>
+        </form>
+        <button onclick="window.location.href='productos.html'">Regresar</button>
+        <div id="loading" style="display: none;">Cargando...</div>
+        <div id="resultadosBusqueda">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Imagen</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Color</th>
+                        <th>Talla</th>
+                        <th>Tela</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Filas de productos se insertarán aquí -->
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <button id="prevPage" disabled>Anterior</button>
+            <span id="pageInfo"></span>
+            <button id="nextPage">Siguiente</button>
+        </div>
+    </main>
+    <script src="js/scripts.js"></script>
+</body>
+</html>

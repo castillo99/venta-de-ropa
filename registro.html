@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Producto</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Productos</h1>
+        <p>Completa el formulario para registrar un nuevo producto:</p>
+        <div id="error-messages"></div>
+        <form id="registro-form" action="#" method="POST">
+            <label for="nombre">Nombre del Producto:</label>
+            <input type="text" id="nombre" name="nombre" maxlength="20" pattern="[A-Za-z\s]+" required>
+
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria" required>
+                <option value="ropa">Ropa</option>
+                <option value="calzado">Calzado</option>
+                <option value="accesorios">Accesorios</option>
+                <option value="vestidos de baño">Vestidos de baño</option>
+                <option value="ropa interio">Ropa interio</option>
+            </select>
+
+            <label for="imagen">Imagen:</label>
+            <select id="imagen" name="imagen" required>
+                <option value="css/img/blusa negra.jpg">Blusa negra.jpg</option>
+                <option value="css/img/bolsos cafe.jpg">Bolsos cafe.jpg</option>
+                <option value="css/img/bolsos lila.jpg">Bolsos lila.jpg</option>
+                <option value="css/img/chaqueta jeans.jpg">Chaqueta jeans.jpg</option>
+                <option value="css/img/chaqueta rosada.jpg">Chaqueta rosada.jpg</option>
+                <option value="css/img/cinturones.jpg">Cinturones.jpg</option>
+                <option value="css/img/falda cafe.jpg">Falda cafe.jpg</option>
+                <option value="css/img/falda rosada.jpg">Falda rosada.jpg</option>
+                <option value="css/img/blusa.png">Blusa.png</option>
+                <option value="css/img/lenceria.jpg">Lenceria.jpg</option>
+                <option value="css/img/lenceria2.jpg">Lenceria2.jpg</option>
+                <option value="css/img/pantalon jeans.jpg">Pantalon jeans.jpg</option>
+                <option value="css/img/pantalon negro.jpg">Pantalon negro.jpg</option>
+                <option value="css/img/plataformas cafes.jpg">Plataformas cafes.jpg</option>
+                <option value="css/img/sandalias cafes.jpg">Sandalias cafes.jpg</option>
+                <option value="css/img/sandalias doradas.jpg">Sandalias doradas.jpg</option>
+                <option value="css/img/short blanco.jpg">Short blanco.jpg</option>
+                <option value="css/img/short jeans.jpg">Short jeans.jpg</option>
+                <option value="css/img/sombreros.jpg">Sombreros.jpg</option>
+                <option value="css/img/vestido azul.jpg">Vestido azul.jpg</option>
+                <option value="css/img/tacones negros.jpg">Tacones negros.jpg</option>
+                <option value="css/img/vestido de baño.jpg">Vestido de baño.jpg</option>
+                <option value="css/img/vestido de baño2.jpg">Vestido de baño2.jpg</option>
+                <option value="css/img/vestido negro.jpg">Vestido negro.jpg</option>
+                <option value="css/img/zapatillas blancas.jpg">Zapatillas blancas.jpg</option>
+                <option value="css/img/zapatillas moradas.jpg">Zapatillas moradas.jpg</option>
+            </select>
+
+            <label for="codigo">Código de Producto:</label>
+            <input type="text" id="codigo" name="codigo" maxlength="8" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*\d).{8}" required>
+
+            <label for="precio">Precio (COP):</label>
+            <input type="number" id="precio" name="precio" step="0.01" required>
+
+            <label for="color">Color:</label>
+            <input type="text" id="color" name="color">
+
+            <label for="talla">Talla:</label>
+            <input type="text" id="talla" name="talla">
+
+            <label for="tela">Tela:</label>
+            <input type="text" id="tela" name="tela">
+
+            <button type="submit">Registrar Producto</button>
+            <button type="reset">Limpiar Campos</button>
+        </form>
+    </div>
+    <div id="registered-products"></div>
+    <script>
+        // Obtener el formulario
+        const form = document.querySelector('#registro-form');
+
+        // Escuchar el evento submit del formulario
+        form.addEventListener('submit', function(event) {
+            // Evitar que el formulario se envíe
+            event.preventDefault();
+
+            // Validar campos
+            const nombre = form.nombre.value.trim();
+            const codigo = form.codigo.value.trim();
+            const precio = parseFloat(form.precio.value);
+            const categoria = form.categoria.value;
+
+            // Verificar si alguno de los campos requeridos está vacío
+            if (!nombre || !codigo || isNaN(precio) || !categoria) {
+                alert('Por favor completa todos los campos requeridos.');
+                // Redirigir a la página de indicaciones
+                redirectToIndexPage();
+                return;
+            }
+
+            const nombreValido = /^[A-Za-z\s]+$/.test(nombre);
+            if (!nombreValido) {
+                alert('El nombre del producto solo debe contener letras y espacios.');
+                return;
+    }
+
+            // Validar el código de producto
+            const codigoValido = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*\d).{8}/.test(codigo);
+            if (!codigoValido) {
+                alert('El código del producto es incorrecto. Debe tener 8 caracteres, una minúscula, una mayúscula y dos números.');
+                return;
+            }
+
+            // Crear un objeto para almacenar los datos del producto
+            const nuevoProducto = {
+                nombre: nombre,
+                categoria: categoria,
+                imagen: form.imagen.value, // Nombre de la imagen seleccionada
+                codigo: codigo,
+                precio: precio, // Convertir el precio a número
+                atributos: {
+                    color: form.color.value,
+                    talla: form.talla.value,
+                    tela: form.tela.value
+                }
+            };
+
+            // Verificar el objeto nuevoProducto
+            console.log('Nuevo Producto:', nuevoProducto);
+
+            // Resto del código para guardar el producto y redirigir al usuario
+            // Obtener los productos existentes del almacenamiento local o inicializar un array vacío si no hay ninguno
+            const productosGuardados = JSON.parse(localStorage.getItem('productos')) || [];
+
+            // Agregar el nuevo producto al array de productos
+            productosGuardados.push(nuevoProducto);
+
+            // Guardar el array de productos actualizado en el almacenamiento local
+            localStorage.setItem('productos', JSON.stringify(productosGuardados));
+
+            // Limpiar el formulario después de agregar el producto
+            form.reset();
+
+            // Opcionalmente, podrías mostrar un mensaje de éxito al usuario
+            alert('Producto registrado exitosamente.');
+
+            // Redirigir a la página principal de productos
+            window.location.href = 'productos.html'; // Reemplaza 'productos.html' con la URL de la página principal de productos
+        });
+    </script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
